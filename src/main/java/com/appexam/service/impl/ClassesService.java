@@ -1,4 +1,4 @@
-package com.appexam.service.serviceImpl;
+package com.appexam.service.impl;
 
 import com.appexam.dao.IClassesRepository;
 import com.appexam.dto.ClassesDto;
@@ -17,12 +17,14 @@ import java.util.stream.StreamSupport;
 @Service
 public class ClassesService implements IClasseService {
 
-    private ClassesMapper classesMapper;
-    private IClassesRepository classesRepository;
+    private final ClassesMapper classesMapper;
+    private final IClassesRepository classesRepository;
+
     public ClassesService(ClassesMapper classesMapper, IClassesRepository classesRepository) {
         this.classesMapper = classesMapper;
         this.classesRepository = classesRepository;
     }
+
     @Override
     @Transactional(readOnly = true)
     public ClassesDto getClassById(Long id) {
@@ -33,10 +35,11 @@ public class ClassesService implements IClasseService {
                         ))
         );
     }
+
     @Transactional(readOnly = true)
     @Override
     public List<ClassesDto> listAllClasses() {
-        return StreamSupport.stream(classesRepository.findAll().spliterator(),false)
+        return StreamSupport.stream(classesRepository.findAll().spliterator(), false)
                 .map(classesMapper::toClassesDto)
                 .collect(Collectors.toList());
     }
@@ -49,7 +52,7 @@ public class ClassesService implements IClasseService {
     @Override
     public ClassesDto updateClass(Long id, ClassesDto classesDto) {
         return classesRepository.findById(id)
-                .map(classe ->{
+                .map(classe -> {
                     classesDto.setId(id);
                     return classesMapper.toClassesDto(classesRepository.save(
                             classesMapper.fromClassesDto(classesDto)
@@ -61,12 +64,12 @@ public class ClassesService implements IClasseService {
     @Transactional
     public void deleteClass(Long id) {
         try {
-            if(classesRepository.findById(id).isEmpty()){
+            if (classesRepository.findById(id).isEmpty()) {
                 throw new EntityNotFoundException("La classe avec l'id:" + id + " n'existe pas");
             }
             classesRepository.deleteById(id);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RequestException("Erreur lors de la suppression", HttpStatus.CONFLICT);
         }
     }
