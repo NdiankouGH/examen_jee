@@ -15,5 +15,5 @@ public class ClassesDto {
     private String className;
     @NotNull(message = "La description de la classe ne doit pas être nulle.")
     private String description;
-    private int sectorId;
+    private Long sectorId;
 }

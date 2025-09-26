@@ -62,15 +62,13 @@ public class ClassesService implements IClasseService {
 
     @Override
     @Transactional
-    public void deleteClass(Long id) {
+    public void deleteClass(Long id) throws EntityNotFoundException {
         try {
-            if (classesRepository.findById(id).isEmpty()) {
-                throw new EntityNotFoundException("La classe avec l'id:" + id + " n'existe pas");
-            }
+
             classesRepository.deleteById(id);
 
-        } catch (Exception e) {
-            throw new RequestException("Erreur lors de la suppression", HttpStatus.CONFLICT);
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException("La classe avec l'id:" + id + " n'existe pas");
         }
     }
 }

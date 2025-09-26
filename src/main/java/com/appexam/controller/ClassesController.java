@@ -36,7 +36,7 @@ public class ClassesController {
         return ResponseEntity.ok(classeService.updateClass(id, classesDto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteClass(@PathVariable Long id) {
         classeService.deleteClass(id);
     }
