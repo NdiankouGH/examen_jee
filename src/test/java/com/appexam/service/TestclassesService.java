@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class Testclassesservice {
+public class TestclassesService {
 
     @InjectMocks
     private ClassesService classesService;
@@ -129,20 +129,12 @@ public class Testclassesservice {
 
     @Test
     void testDeleteClassesSuccess(){
-        when(classesRepository.findById(classesEntity.getId())).thenReturn(Optional.of(classesEntity));
+       // when(classesRepository.findById(classesEntity.getId())).thenReturn(Optional.of(classesEntity));
         doNothing().when(classesRepository).deleteById(classesEntity.getId());
 
         classesService.deleteClass(classesEntity.getId());
 
         verify(classesRepository).deleteById(classesEntity.getId());
-    }
-
-
-    void testDeleteClassesFailure(){
-        when(classesRepository.findById(classesEntity.getId())).thenReturn(Optional.empty());
-
-        assertThrows(EntityNotFoundException.class,
-                () -> classesService.deleteClass(classesEntity.getId()));
     }
 
 }

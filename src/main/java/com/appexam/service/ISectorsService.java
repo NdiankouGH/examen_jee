@@ -13,5 +13,5 @@ public interface ISectorsService {
 
     SectorsDto updateSector(Long id, SectorsDto sectorsDto);
 
-    void deleteSector(Long id);
+    void deleteSector(Long id) throws Exception;
 }

@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -123,7 +122,7 @@ public class testSectorsService {
     }
 
     @Test
-    void testDeleteSectorS(){
+    void testDeleteSectorS() throws Exception{
         when( sectorsRepository.findById(1L)).thenReturn(Optional.of(sectorEntity));
         doNothing().when(sectorsRepository).deleteById(sectorEntity.getId());
         sectorsService.deleteSector(sectorEntity.getId());

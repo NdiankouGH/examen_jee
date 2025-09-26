@@ -37,7 +37,7 @@ public class SectorsController {
     }
 
     @DeleteMapping("/id")
-    public void deleteSector(@PathVariable Long id) {
+    public void deleteSector(@PathVariable Long id) throws Exception {
         sectorsService.deleteSector(id);
     }
 

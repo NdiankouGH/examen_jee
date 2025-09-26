@@ -56,7 +56,7 @@ public class SectorsService implements ISectorsService {
     }
 
     @Override
-    public void deleteSector(Long id) {
+    public void deleteSector(Long id) throws Exception {
 
         try {
             if (sectorsRepository.findById(id).isEmpty()) {
@@ -64,7 +64,7 @@ public class SectorsService implements ISectorsService {
             }
             sectorsRepository.deleteById(id);
         } catch (Exception e) {
-            throw new EntityNotFoundException("La secteur avec l'id:" + id + " n'existe pas");
+            throw new Exception("La secteur avec l'id:" + id + " n'existe pas");
         }
     }
 }
