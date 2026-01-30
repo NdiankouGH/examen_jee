@@ -1,5 +1,5 @@
 version: '3.8'
-
+name: app_examen
 services:
   mysql:
     image: mysql:latest
@@ -54,7 +54,13 @@ services:
       - app-network
     restart: unless-stopped
 
-  
+  redis-ms-produit:
+    image: redis:8.0.0
+    container_name: container-redis-devops
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
 networks:
   app-network:
     driver: bridge

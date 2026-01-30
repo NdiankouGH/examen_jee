@@ -1,10 +1,13 @@
 package com.appexam.service.impl;
 
-import com.appexam.dao.ISectorsREpository;
+import com.appexam.repository.ISectorsREpository;
 import com.appexam.dto.SectorsDto;
 import com.appexam.exception.EntityNotFoundException;
 import com.appexam.mapper.SectorMapper;
 import com.appexam.service.ISectorsService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@CacheConfig(cacheNames = "sectors")
 public class SectorsService implements ISectorsService {
     private final SectorMapper sectorMapper;
     private final ISectorsREpository sectorsRepository;
@@ -25,13 +29,14 @@ public class SectorsService implements ISectorsService {
     @Override
     @Transactional(readOnly = true)
     public List<SectorsDto> listAllSectors() {
-        return StreamSupport.stream(sectorsRepository.findAll().spliterator(), false)
+        return sectorsRepository.findAll().stream()
                 .map(sectorMapper::toSectorsDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(key = "#id")
     public SectorsDto getSectorById(Long id) {
         return sectorMapper.toSectorsDto(
                 sectorsRepository.findById(id).orElseThrow(
@@ -46,6 +51,7 @@ public class SectorsService implements ISectorsService {
     }
 
     @Override
+    @Cacheable(key = "#id")
     public SectorsDto updateSector(Long id, SectorsDto sectorsDto) {
         return sectorsRepository.findById(id)
                 .map(sectors -> {
@@ -56,6 +62,7 @@ public class SectorsService implements ISectorsService {
     }
 
     @Override
+    @CacheEvict(key = "#id")
     public void deleteSector(Long id) throws Exception {
 
         try {

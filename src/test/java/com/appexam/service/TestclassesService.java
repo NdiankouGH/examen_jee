@@ -1,7 +1,7 @@
 package com.appexam.service;
 
 
-import com.appexam.dao.IClassesRepository;
+import com.appexam.repository.IClassesRepository;
 import com.appexam.dto.ClassesDto;
 import com.appexam.entity.Classes;
 import com.appexam.entity.Sectors;

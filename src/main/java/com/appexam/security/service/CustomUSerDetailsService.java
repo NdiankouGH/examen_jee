@@ -1,6 +1,6 @@
 package com.appexam.security.service;
 
-import com.appexam.dao.UserRepository;
+import com.appexam.repository.UserRepository;
 import com.appexam.exception.EntityNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

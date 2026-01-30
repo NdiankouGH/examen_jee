@@ -1,12 +1,13 @@
 package com.appexam.service.impl;
 
-import com.appexam.dao.IClassesRepository;
+import com.appexam.repository.IClassesRepository;
 import com.appexam.dto.ClassesDto;
 import com.appexam.exception.EntityNotFoundException;
-import com.appexam.exception.RequestException;
 import com.appexam.mapper.ClassesMapper;
 import com.appexam.service.IClasseService;
-import org.springframework.http.HttpStatus;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,8 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@Transactional
+@CacheConfig(cacheNames = "classes")
 public class ClassesService implements IClasseService {
 
     private final ClassesMapper classesMapper;
@@ -27,6 +30,7 @@ public class ClassesService implements IClasseService {
 
     @Override
     @Transactional(readOnly = true)
+    @Cacheable(key = "#id")
     public ClassesDto getClassById(Long id) {
         return classesMapper.toClassesDto(
                 classesRepository.findById(id)
@@ -50,6 +54,7 @@ public class ClassesService implements IClasseService {
     }
 
     @Override
+    @Cacheable( key = "#id")
     public ClassesDto updateClass(Long id, ClassesDto classesDto) {
         return classesRepository.findById(id)
                 .map(classe -> {
@@ -62,6 +67,7 @@ public class ClassesService implements IClasseService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "classes", key = "#id")
     public void deleteClass(Long id) throws EntityNotFoundException {
         try {
 

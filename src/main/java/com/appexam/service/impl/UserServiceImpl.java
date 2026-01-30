@@ -1,6 +1,6 @@
 package com.appexam.service.impl;
 
-import com.appexam.dao.UserRepository;
+import com.appexam.repository.UserRepository;
 import com.appexam.dto.UserDto;
 import com.appexam.entity.Role;
 import com.appexam.entity.User;

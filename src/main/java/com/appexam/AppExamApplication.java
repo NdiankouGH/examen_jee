@@ -1,12 +1,11 @@
 package com.appexam;
 
-import com.appexam.dao.UserRepository;
+import com.appexam.repository.UserRepository;
 import com.appexam.entity.Role;
 import com.appexam.entity.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

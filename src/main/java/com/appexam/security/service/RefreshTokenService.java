@@ -1,8 +1,8 @@
 package com.appexam.security.service;
 
 
-import com.appexam.dao.RefreshTokenRepository;
-import com.appexam.dao.UserRepository;
+import com.appexam.repository.RefreshTokenRepository;
+import com.appexam.repository.UserRepository;
 import com.appexam.entity.RefreshToken;
 import com.appexam.entity.User;
 import com.appexam.exception.RequestException;

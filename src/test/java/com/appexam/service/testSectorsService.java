@@ -1,6 +1,6 @@
 package com.appexam.service;
 
-import com.appexam.dao.ISectorsREpository;
+import com.appexam.repository.ISectorsREpository;
 import com.appexam.dto.SectorsDto;
 import com.appexam.entity.Sectors;
 import com.appexam.exception.EntityNotFoundException;
